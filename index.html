@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Sistem Pendukung Keputusan Pemilihan Paket Umroh menggunakan Metode Simple Additive Weighting (SAW) — Politeknik Negeri Indramayu">
+    <title>SPK Pemilihan Paket Umroh — Metode SAW</title>
+    <link rel="icon" type="image/png" href="logo-kabah.png">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <style>
+        /* Styles for site-header structure */
+        .site-header {
+            text-align: center;
+            padding: 30px 30px 25px 30px;
+            margin: -40px -40px 30px -40px;
+            background:
+                radial-gradient(circle at top right, rgba(201, 168, 76, 0.2) 0%, rgba(201, 168, 76, 0) 45%),
+                radial-gradient(ellipse at top center, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 75%),
+                linear-gradient(135deg, #0f2b1e 0%, #1a4731 50%, rgba(201, 168, 76, 0.25) 100%);
+            border-radius: 16px 16px 0 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .site-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M40 0L46 15L61 10L56 25L71 35L56 40L71 45L56 55L61 70L46 65L40 80L34 65L19 70L24 55L9 45L24 40L9 35L24 25L19 10L34 15Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .header-logo {
+            width: 175px;
+            height: auto;
+            position: absolute;
+            top: 20px;
+            left: 24px;
+            z-index: 1;
+        }
+
+        .header-text {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .site-header h1 {
+            color: #ffffff;
+            font-size: 2.2rem;
+            margin: 0;
+            padding-bottom: 10px;
+            position: relative;
+            text-align: center;
+            letter-spacing: -0.5px;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .site-header h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, rgba(201, 168, 76, 0) 0%, rgba(201, 168, 76, 1) 50%, rgba(201, 168, 76, 0) 100%);
+            border-radius: 2px;
+            box-shadow: 0 2px 4px rgba(201, 168, 76, 0.3);
+        }
+
+        .header-subtitle {
+            color: #c9a84c;
+            font-weight: 600;
+            font-size: 1rem;
+            margin: 12px 0 4px 0;
+            letter-spacing: 0.5px;
+        }
+
+        .header-meta {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+            margin: 4px 0 0 0;
+            line-height: 1.6;
+        }
+
+        .header-meta i {
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .site-header {
+                padding: 100px 15px 20px 15px;
+                margin: -20px -20px 20px -20px;
+                border-radius: 12px 12px 0 0;
+            }
+
+            .header-logo {
+                width: 150px;
+                top: 15px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .site-header h1 {
+                font-size: 1.6rem;
+            }
+
+            .site-header h1::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="site-header">
+            <img src="logo.png" alt="Logo Polindra" class="header-logo">
+            <img src="logo-kabah.png" class="header-kabah">
+            <div class="header-text">
+                <h1>Sistem Pendukung Keputusan</h1>
+                <p class="header-subtitle">Metode Simple Additive Weighting (SAW)</p>
+                <p class="header-meta">
+                    Program Studi D4 Sistem Informasi Kota Cerdas
+                    <br>Politeknik Negeri Indramayu
+                    <br><i>Kelompok 2:
+                        Dary Ibrahim Akram · Andre Muhammad Pajri ·
+                        Muhammad Reza Fadillah · Faris Hilman Ramadhan</i>
+                </p>
+            </div>
+        </div>
+
+        <div class="toolbar">
+            <button onclick="downloadTemplate()">1. Download Template</button>
+            <label class="btn-upload">
+                2. Upload Template
+                <input type="file" id="fileUpload" accept=".xlsx, .xls" onchange="uploadTemplate(event)"
+                    style="display: none;">
+            </label>
+
+            <div id="dynamicTools" style="display: none;">
+                <button id="btnHitung" onclick="processSAW()" class="btn-primary" disabled style="margin-right: 10px;">
+                    3. Hitung Hasil SAW</button>
+                <button onclick="tambahKriteria()" style="background-color: #27ae60; color: white; margin-right: 10px;">
+                    Add Kriteria</button>
+                <button onclick="tambahAlternatif()"
+                    style="background-color: #f39c12; color: white; margin-right: 10px;">
+                    Add Alternatif</button>
+                <button onclick="resetData()" class="btn-danger">Reset Data</button>
+            </div>
+        </div>
+
+        <div id="loadingBarContainer" style="display: none; margin-bottom: 20px;">
+            <p style="text-align: center; margin: 0 0 5px 0; font-size: 14px; font-weight: bold; color: #1a4731;">
+                Memproses Perhitungan SAW...
+            </p>
+            <div class="progress-container">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
+        </div>
+
+        <div id="dataTableContainer">
+            <p class="placeholder-text">Silakan upload template Excel (.xlsx) atau download template terlebih dahulu.
+            </p>
+        </div>
+
+        <div id="resultContainer"></div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="excel.js"></script>
+    <script src="utils.js"></script>
+    <script src="table.js"></script>
+    <script src="saw.js"></script>
+
+</body>
+
+</html>
