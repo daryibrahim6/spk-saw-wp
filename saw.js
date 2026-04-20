@@ -54,7 +54,7 @@ function hitungSAW() {
         nilai.push(rowData);
     }
 
-    let resultHTML = '<h2>Hasil Perhitungan SAW</h2>';
+    let resultHTML = '<h2 class="hasil-heading">Hasil Perhitungan SAW</h2>';
 
     resultHTML += `
     <div class="step-card">
@@ -117,7 +117,7 @@ function hitungSAW() {
 
             nVal = parseFloat(nVal.toFixed(3));
             normRow.push(nVal);
-            resultHTML += `<td>${nVal}</td>`;
+            resultHTML += `<td>${formatNumber(nVal)}</td>`;
         }
         normalisasi.push(normRow);
         resultHTML += '</tr>';
@@ -131,7 +131,7 @@ function hitungSAW() {
         <table>
             <tr>
                 <th>Alternatif</th>
-                <th>Perhitungan (Normalisasi * Bobot)</th>
+                <th>Perhitungan (Normalisasi × Bobot)</th>
                 <th>Total Skor</th>
             </tr>`;
 
@@ -141,7 +141,7 @@ function hitungSAW() {
         for (let c = 0; c < kriteria.length; c++) {
             let val = normalisasi[r][c] * bobot[c];
             total += val;
-            pStr.push(`(${normalisasi[r][c]} * ${bobot[c]})`);
+            pStr.push(`(${formatNumber(normalisasi[r][c])} × ${formatNumber(bobot[c])})`);
         }
         total = parseFloat(total.toFixed(3));
         skorAkhir.push({ nama: alternatif[r], skor: total });
@@ -150,7 +150,7 @@ function hitungSAW() {
             <tr>
                 <td>${alternatif[r]}</td>
                 <td style="font-size:12px;">${pStr.join(' + ')}</td>
-                <td><strong>${total}</strong></td>
+                <td><strong>${formatNumber(total)}</strong></td>
             </tr>`;
     }
     resultHTML += '</table></div>';
@@ -172,7 +172,7 @@ function hitungSAW() {
             <tr>
                 <td>${index + 1}</td>
                 <td>${item.nama}</td>
-                <td><strong>${item.skor}</strong></td>
+                <td><strong>${formatNumber(item.skor)}</strong></td>
             </tr>`;
     });
     resultHTML += '</table></div>';

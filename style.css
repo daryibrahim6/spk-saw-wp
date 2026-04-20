@@ -53,16 +53,82 @@ h1 {
     padding-bottom: 15px;
 }
 
-h1::after {
+/* ===== SAW HEADER CSS ===== */
+.site-header {
+    text-align: center;
+    padding: 30px 30px 25px 30px;
+    margin: -40px -40px 30px -40px;
+    background:
+        radial-gradient(circle at top right, rgba(201, 168, 76, 0.2) 0%, rgba(201, 168, 76, 0) 45%),
+        radial-gradient(ellipse at top center, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 75%),
+        linear-gradient(135deg, #0f2b1e 0%, #1a4731 50%, rgba(201, 168, 76, 0.25) 100%);
+    border-radius: 16px 16px 0 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.site-header::before {
     content: '';
     position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background-color: var(--accent-color);
-    border-radius: 2px;
+    background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M40 0L46 15L61 10L56 25L71 35L56 40L71 45L56 55L61 70L46 65L40 80L34 65L19 70L24 55L9 45L24 40L9 35L24 25L19 10L34 15Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+}
+
+.header-logo {
+    width: 175px;
+    height: auto;
+    position: absolute;
+    top: 20px;
+    left: 24px;
+    z-index: 1;
+}
+
+.header-text {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+.site-header h1,
+.site-header-wp h1 {
+    color: #ffffff;
+    font-size: 2.2rem;
+    margin: 0;
+    padding-bottom: 10px;
+    position: relative;
+    text-align: center;
+    letter-spacing: -0.5px;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.header-subtitle {
+    color: #c9a84c;
+    font-weight: 600;
+    font-size: 1rem;
+    margin: 12px 0 4px 0;
+    letter-spacing: 0.5px;
+}
+
+.header-sub-subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    font-weight: 400;
+    margin: 0 0 4px 0;
+}
+
+.header-meta {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.85rem;
+    margin: 4px 0 0 0;
+    line-height: 1.6;
+}
+
+.header-meta i {
+    font-style: italic;
 }
 
 .toolbar {
@@ -228,7 +294,6 @@ th[contenteditable="true"]:focus {
 
 .step-card {
     background: var(--white);
-    border-left: 5px solid var(--accent-color);
     padding: 25px;
     margin-bottom: 25px;
     border-radius: 8px;
@@ -345,6 +410,23 @@ th[contenteditable="true"]:focus {
         right: 12px;
         opacity: 0.5;
     }
+
+    .site-header {
+        padding: 100px 15px 20px 15px;
+        margin: -20px -20px 20px -20px;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .header-logo {
+        width: 150px;
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .site-header h1 {
+        font-size: 1.6rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -370,4 +452,224 @@ th[contenteditable="true"]:focus {
         font-size: 0.78rem;
         padding: 7px 10px;
     }
+}
+
+/* ===== BAGIAN A: WP THEME VARIABLES ===== */
+body.theme-wp {
+    --primary-color: #1a2e5e;
+    --accent-color: #17a589;
+    --bg-color: #f0f4f8;
+    --border-color: #d0dce8;
+    background-image:
+        radial-gradient(circle at top right, rgba(23, 165, 137, 0.05), transparent 40%),
+        radial-gradient(circle at bottom left, rgba(26, 46, 94, 0.05), transparent 40%);
+}
+
+body.theme-wp .container {
+    box-shadow: 0 10px 30px rgba(26, 46, 94, 0.08);
+}
+
+/* ===== BAGIAN B: METHOD SWITCHER CSS (Modern Segmented Control) ===== */
+.method-switcher {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto 30px auto;
+    background-color: color-mix(in srgb, var(--primary-color) 8%, transparent);
+    padding: 6px;
+    border-radius: 50px;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.switcher-btn {
+    flex: 1;
+    padding: 14px 20px;
+    background-color: transparent;
+    border: none;
+    color: color-mix(in srgb, var(--primary-color) 60%, transparent);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border-radius: 40px;
+    transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: 0.3px;
+    text-align: center;
+}
+
+.switcher-btn:hover:not(.active) {
+    color: var(--primary-color);
+    background-color: color-mix(in srgb, var(--white) 50%, transparent);
+}
+
+.switcher-btn.active {
+    background-color: var(--white);
+    color: var(--primary-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+/* ===== BAGIAN C: WP HEADER CSS ===== */
+.site-header-wp {
+    text-align: center;
+    padding: 30px 30px 25px 30px;
+    margin: -40px -40px 30px -40px;
+    background:
+        radial-gradient(circle at top right, rgba(23, 165, 137, 0.2) 0%, rgba(23, 165, 137, 0) 45%),
+        radial-gradient(ellipse at top center, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 75%),
+        linear-gradient(135deg, #0d1f3c 0%, #1a2e5e 55%, rgba(23, 165, 137, 0.2) 100%);
+    border-radius: 16px 16px 0 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.site-header-wp::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.04) 2px, transparent 2px);
+    background-size: 28px 28px;
+    pointer-events: none;
+}
+
+.site-header-wp .header-icon-wp {
+    position: absolute;
+    top: 16px;
+    right: 24px;
+    width: 100px;
+    height: auto;
+    opacity: 0.75;
+    z-index: 1;
+    user-select: none;
+}
+
+
+/* Unique Glowing Title Underline for Both Headers */
+.site-header h1::after,
+.site-header-wp h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px; /* Lebar default */
+    height: 3px;
+    border-radius: 4px;
+    transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+    animation: glowPulseTitle 3s infinite alternate;
+}
+
+/* Lebar memanjang saat di-hover judulnya */
+.site-header h1:hover::after,
+.site-header-wp h1:hover::after {
+    width: 250px;
+}
+
+/* Tema SAW: Glow Emas */
+.site-header h1::after {
+    background: linear-gradient(90deg, rgba(201, 168, 76, 0) 0%, rgba(201, 168, 76, 1) 50%, rgba(201, 168, 76, 0) 100%);
+    box-shadow: 0 0 10px rgba(201, 168, 76, 0.4);
+}
+
+/* Tema WP: Glow Teal */
+.site-header-wp h1::after {
+    background: linear-gradient(90deg, rgba(23, 165, 137, 0) 0%, rgba(23, 165, 137, 1) 50%, rgba(23, 165, 137, 0) 100%);
+    box-shadow: 0 0 10px rgba(23, 165, 137, 0.4);
+}
+
+@keyframes glowPulseTitle {
+    0% { opacity: 0.6; filter: brightness(1); }
+    100% { opacity: 1; filter: brightness(1.5); }
+}
+
+/* WP header subtitle color override (base gold → teal) */
+.site-header-wp .header-subtitle {
+    color: #17a589;
+}
+
+@media (max-width: 768px) {
+    .site-header-wp {
+        padding: 100px 15px 20px 15px;
+        margin: -20px -20px 20px -20px;
+        border-radius: 12px 12px 0 0;
+    }
+
+    .site-header-wp h1 {
+        font-size: 1.6rem;
+    }
+
+    .site-header-wp .header-icon-wp {
+        width: 75px;
+        top: 10px;
+        right: 12px;
+        opacity: 0.5;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-header-wp {
+        padding: 20px 14px;
+    }
+}
+
+/* ===== BAGIAN D: WP COMPONENT OVERRIDES ===== */
+body.theme-wp .progress-bar {
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--primary-color));
+    background-size: 200% 100%;
+    animation: gradientMove 3s linear infinite;
+}
+
+body.theme-wp .step-card {
+    border-left: 5px solid var(--accent-color);
+}
+
+body.theme-wp table th {
+    background-color: var(--primary-color);
+}
+
+body.theme-wp table tbody tr:hover td {
+    background-color: rgba(23, 165, 137, 0.05);
+}
+
+body.theme-wp .btn-primary {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+body.theme-wp .btn-primary:hover {
+    background-color: var(--accent-color);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(26, 46, 94, 0.2);
+}
+
+body.theme-wp select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(23, 165, 137, 0.2);
+    outline: none;
+}
+
+body.theme-wp td[contenteditable="true"],
+body.theme-wp th[contenteditable="true"] {
+    background-color: rgba(23, 165, 137, 0.05);
+}
+
+body.theme-wp td[contenteditable="true"]:focus,
+body.theme-wp th[contenteditable="true"]:focus {
+    background-color: rgba(23, 165, 137, 0.15);
+    box-shadow: inset 0 0 0 1px var(--accent-color);
+}
+
+body.theme-wp h2.hasil-heading {
+    color: var(--primary-color);
+}
+
+/* ===== BAGIAN E: TRANSITION RULES ===== */
+.container, table th, .step-card, .btn-primary, .progress-bar,
+.method-switcher .switcher-btn, .site-header, .site-header-wp, body,
+td[contenteditable="true"], th[contenteditable="true"] {
+    transition: background-color 0.4s ease, border-color 0.4s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
