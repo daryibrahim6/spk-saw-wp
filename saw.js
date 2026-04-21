@@ -86,7 +86,7 @@ function hitungSAW() {
             <tr>
                 <td>${kriteria[c]}</td>
                 <td>${tipe[c]}</td>
-                <td><strong>${jns} = ${formatNumber(maxMinVals[c])}</strong></td>
+                <td><strong style="color: var(--accent-color);">${jns} = ${formatNumber(maxMinVals[c])}</strong></td>
             </tr>`;
     }
     resultHTML += '</table></div>';
@@ -150,7 +150,7 @@ function hitungSAW() {
             <tr>
                 <td>${alternatif[r]}</td>
                 <td style="font-size:12px;">${pStr.join(' + ')}</td>
-                <td><strong>${formatNumber(total)}</strong></td>
+                <td><strong style="color: var(--accent-color);">${formatNumber(total)}</strong></td>
             </tr>`;
     }
     resultHTML += '</table></div>';
@@ -172,7 +172,7 @@ function hitungSAW() {
             <tr>
                 <td>${index + 1}</td>
                 <td>${item.nama}</td>
-                <td><strong>${formatNumber(item.skor)}</strong></td>
+                <td><strong style="color: var(--accent-color); font-size:18px;">${formatNumber(item.skor)}</strong></td>
             </tr>`;
     });
     resultHTML += '</table></div>';

@@ -210,7 +210,7 @@ table {
 th,
 td {
     border-bottom: 1px solid var(--border-color);
-    padding: 14px 12px;
+    padding: 10px 12px;
     text-align: center;
     transition: background-color 0.2s ease;
 }
@@ -379,11 +379,16 @@ th[contenteditable="true"]:focus {
     }
 
     h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
     }
 
     .toolbar {
         flex-direction: column;
+    }
+
+    #dynamicTools {
+        flex-direction: column;
+        gap: 8px;
     }
 
     button,
@@ -391,55 +396,136 @@ th[contenteditable="true"]:focus {
         width: 100%;
         justify-content: center;
         box-sizing: border-box;
-        margin-right: 0;
+        margin-right: 0 !important;
     }
 
     table {
-        display: block;
         overflow-x: auto;
         white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    #dataTableContainer {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .step-card {
         padding: 15px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
-    .header-kabah {
-        width: 75px;
-        top: 10px;
-        right: 12px;
-        opacity: 0.5;
+    /* Allow long calculation text to wrap on mobile */
+    .step-card td[style*="font-size"] {
+        white-space: normal;
+        word-break: break-word;
     }
 
+    /* SAW header mobile */
     .site-header {
-        padding: 100px 15px 20px 15px;
+        padding: 20px 15px 20px 15px;
         margin: -20px -20px 20px -20px;
         border-radius: 12px 12px 0 0;
     }
 
+    /* Logo Polindra: centered above title */
     .header-logo {
-        width: 150px;
-        top: 15px;
-        left: 50%;
-        transform: translateX(-50%);
+        position: relative;
+        display: block;
+        width: 120px;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin: 0 auto 12px auto;
     }
 
-    .site-header h1 {
-        font-size: 1.6rem;
+    /* Kabah icon: keep top-right like desktop, just smaller */
+    .header-kabah {
+        width: 55px;
+        top: 12px;
+        right: 10px;
+        opacity: 0.35;
+    }
+
+    .site-header h1,
+    .site-header-wp h1 {
+        font-size: 1.45rem;
+        letter-spacing: -0.3px;
+    }
+
+    .header-subtitle {
+        font-size: 0.88rem;
+    }
+
+    .header-sub-subtitle {
+        font-size: 0.8rem;
+    }
+
+    .header-meta {
+        font-size: 0.75rem;
+        line-height: 1.5;
+    }
+
+    /* Method switcher */
+    .method-switcher {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .switcher-btn {
+        padding: 10px 14px;
+        font-size: 0.85rem;
     }
 }
 
 @media (max-width: 480px) {
     body {
-        padding: 8px 6px 32px;
+        padding: 6px;
+    }
+
+    .container {
+        padding: 14px;
+        border-radius: 10px;
     }
 
     .site-header {
-        padding: 20px 14px;
+        padding: 16px 12px;
+        margin: -14px -14px 16px -14px;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .header-logo {
+        width: 100px;
+        margin-bottom: 10px;
+    }
+
+    .header-kabah {
+        width: 45px;
+        top: 10px;
+        right: 8px;
+        opacity: 0.25;
+    }
+
+    .site-header h1,
+    .site-header-wp h1 {
+        font-size: 1.25rem;
+    }
+
+    .header-subtitle {
+        font-size: 0.8rem;
+    }
+
+    .header-sub-subtitle {
+        font-size: 0.75rem;
+    }
+
+    .header-meta {
+        font-size: 0.7rem;
     }
 
     table {
-        font-size: 0.75rem;
+        font-size: 0.72rem;
     }
 
     th,
@@ -450,7 +536,29 @@ th[contenteditable="true"]:focus {
     button,
     .btn-upload {
         font-size: 0.78rem;
-        padding: 7px 10px;
+        padding: 8px 12px;
+    }
+
+    .step-card {
+        padding: 12px;
+        margin-bottom: 16px;
+    }
+
+    .step-card h2 {
+        font-size: 1rem;
+    }
+
+    .step-card h3 {
+        font-size: 0.9rem;
+    }
+
+    .method-switcher {
+        padding: 4px;
+    }
+
+    .switcher-btn {
+        padding: 9px 10px;
+        font-size: 0.8rem;
     }
 }
 
@@ -593,26 +701,46 @@ body.theme-wp .container {
 
 @media (max-width: 768px) {
     .site-header-wp {
-        padding: 100px 15px 20px 15px;
+        padding: 20px 15px 20px 15px;
         margin: -20px -20px 20px -20px;
         border-radius: 12px 12px 0 0;
     }
 
-    .site-header-wp h1 {
-        font-size: 1.6rem;
+    .site-header-wp .header-logo {
+        position: relative;
+        display: block;
+        width: 120px;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin: 0 auto 12px auto;
     }
 
     .site-header-wp .header-icon-wp {
-        width: 75px;
-        top: 10px;
-        right: 12px;
-        opacity: 0.5;
+        width: 55px;
+        top: 12px;
+        right: 10px;
+        opacity: 0.35;
     }
 }
 
 @media (max-width: 480px) {
     .site-header-wp {
-        padding: 20px 14px;
+        padding: 16px 12px;
+        margin: -14px -14px 16px -14px;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .site-header-wp .header-logo {
+        width: 100px;
+        margin-bottom: 10px;
+    }
+
+    .site-header-wp .header-icon-wp {
+        width: 45px;
+        top: 10px;
+        right: 8px;
+        opacity: 0.25;
     }
 }
 
